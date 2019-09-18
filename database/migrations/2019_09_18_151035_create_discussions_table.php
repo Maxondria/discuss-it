@@ -17,7 +17,7 @@ class CreateDiscussionsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->text('content');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->integer('user_id');
             $table->integer('channel_id');
             $table->timestamps();
