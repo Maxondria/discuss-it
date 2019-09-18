@@ -18,7 +18,8 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            return redirect('/discussions');
+            #Force user back to /discussion if they try to access login when logged in already
         }
 
         return $next($request);
