@@ -16,6 +16,27 @@
         </div>
     </div>
 
+    @foreach($discussion->replies()->paginate(3) as $reply)
+        <div class="card my-3">
+            <div class="card-header">
+                <div class="d-flex justify-content-between">
+
+                    <div>
+
+                        <img src="{{ Gravatar::src($reply->author->email) }}" width="40px" height="40px"
+                             style="border-radius: 50%" alt="User Image">
+                        <strong class="ml-2">{{ $reply->author->name }}</strong>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-body">
+                {!! $reply->reply !!}
+            </div>
+        </div>
+    @endforeach
+    {{ $discussion->replies()->paginate(3)->links() }}
+
     <div class="card">
         <div class="card-header">
             Add A Reply
