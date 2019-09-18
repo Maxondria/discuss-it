@@ -8,6 +8,13 @@ class Discussion extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
+
+
     /**
      * Helpful method during Route-Model Binding,
      * Basically, overwrite Laravel from using the default 'id', to use the field we give it

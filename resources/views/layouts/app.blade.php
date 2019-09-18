@@ -16,6 +16,13 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    <style>
+        .btn-info {
+            width: 100%;
+            color: white;
+        }
+    </style>
+
     @yield('css')
 
 </head>
@@ -93,7 +100,7 @@
                 <div class="col-md-4">
 
                     @auth
-                        <a href="{{ route('discussions.create') }}" style="width: 100%; color: #ffffff"
+                        <a href="{{ route('discussions.create') }}"
                            class="btn btn-info mb-2">Create Discussion</a>
                     @else
                         <a href="{{ route('login') }}" style="width: 100%; color: #ffffff"
