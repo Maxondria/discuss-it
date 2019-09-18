@@ -2,9 +2,9 @@
     <div class="d-flex justify-content-between">
 
         <div>
-{{--            {{ Gravatar::src($discussion->author->email) }}--}}
-            <img src="" width="40px" height="40px"
-                 style="border-radius: 50%" alt="Gravatar Remember">
+
+            <img src="{{ Gravatar::src($discussion->author->email) }}" width="40px" height="40px"
+                 style="border-radius: 50%" alt="User Image">
             <strong class="ml-2">{{ $discussion->author->name }}</strong>
         </div>
 
