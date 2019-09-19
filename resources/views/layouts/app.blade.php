@@ -45,17 +45,21 @@
 
                     @auth
 
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
+                        @if(auth()->user()->unreadNotifications->count() > 0)
+
+                            <li class="nav-item">
+                                <a href="{{ route('users.notifications') }}" class="nav-link">
 
                                 <span class="badge badge-danger">
                                     {{ auth()->user()->unreadNotifications->count() }}
                                     Unread Notifications
                                 </span>
 
-                            </a>
-                        </li>
+                                </a>
+                            </li>
 
+
+                        @endif
                     @endauth
 
 
