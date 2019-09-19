@@ -4,6 +4,7 @@ namespace DiscussIt\Http\Controllers;
 
 use DiscussIt\Discussion;
 use DiscussIt\Http\Requests\CreateRepliesRequest;
+use DiscussIt\Notifications\NewReplyAdded;
 use Illuminate\Http\Request;
 
 class RepliesController extends Controller
@@ -41,6 +42,9 @@ class RepliesController extends Controller
         $data['user_id'] = auth()->user()->id;
 
         $discussion->replies()->create($data);
+
+        #SEND NOTIFICATION
+        $discussion->author->notify(new NewReplyAdded($discussion));
 
         session()->flash('success', 'Reply Added');
         return redirect()->back();
