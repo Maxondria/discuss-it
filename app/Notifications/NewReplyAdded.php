@@ -36,7 +36,7 @@ class NewReplyAdded extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -56,13 +56,14 @@ class NewReplyAdded extends Notification
     /**
      * Get the array representation of the notification.
      *
+     * WILL SAVE THIS TO THE DATABASE
      * @param mixed $notifiable
      * @return array
      */
     public function toArray($notifiable)
     {
         return [
-            //
+            'discussion' => $this->discussion,
         ];
     }
 }
