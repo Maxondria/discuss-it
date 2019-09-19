@@ -33,7 +33,7 @@ class Discussion extends Model
 
     /**
      * @param Reply $reply
-     * @return bool
+     * @return void
      */
     public function markAsBestReply(Reply $reply)
     {
@@ -41,7 +41,25 @@ class Discussion extends Model
             'reply_id' => $reply->id
         ]);
 
-        $reply->author->notify(new ReplyMarkedAsBestReply($reply->discussion));
+        if (!$reply->author->id === $this->author->id) {
+            $reply->author->notify(new ReplyMarkedAsBestReply($reply->discussion));
+        }
+        return;
+    }
+
+    public function scopeFilterByChannels($queryBuilder)
+    {
+        if (request()->query('channel')) {
+            $channel = Channel::where([
+                'slug' => request()->query('channel')
+            ])->first();
+
+            if ($channel) {
+                return $queryBuilder->where(['channel_id' => $channel->id]);
+            }
+            return $queryBuilder;
+        }
+        return $queryBuilder;
     }
 
     public function bestReply()

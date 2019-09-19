@@ -14,6 +14,6 @@
             </div>
         </div>
     @endforeach
-
     {{ $discussions->links() }}
 @endsection
+
