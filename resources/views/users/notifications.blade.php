@@ -23,6 +23,18 @@
                                     View Discussion
                                 </a>
                             @endif
+
+                            @if($notification->type === 'DiscussIt\Notifications\ReplyMarkedAsBestReply')
+                                Your reply has been marked as best reply:
+
+                                <strong
+                                    style="color: darkgreen">{{ $notification->data['discussion']['title'] }}</strong>
+
+                                <a href="{{ route('discussions.show', $notification->data['discussion']['slug']) }}"
+                                   style="width: 30%" class="btn btn-sm btn-success text-center float-right">
+                                    View Discussion
+                                </a>
+                            @endif
                         </li>
 
                     @endforeach

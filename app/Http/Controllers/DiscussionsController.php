@@ -97,12 +97,13 @@ class DiscussionsController extends Controller
     /**
      * @param Discussion $discussion
      * @param Reply $reply
+     * Notify the owner of the reply that their reply was voted the best
      * @return \Illuminate\Http\RedirectResponse
      */
     public function reply(Discussion $discussion, Reply $reply)
     {
         $discussion->markAsBestReply($reply);
-        session()->flash('success', 'Marked As Best R eply');
+        session()->flash('success', 'Marked As Best Reply');
         return redirect()->back();
     }
 }

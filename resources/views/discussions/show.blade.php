@@ -17,7 +17,7 @@
             @if($discussion->bestReply)
 
                 <div class="card bg-success my-5" style="color: white">
-                    <div class="card-header d-flex justify-content-between">
+                    <div class="card-header bg-primary d-flex justify-content-between">
 
                         <div>
                             <img width="40px" height="40px" style="border-radius: 50%"
@@ -54,17 +54,27 @@
                         </div>
 
                         <div>
-                            @if(auth()->user()->id === $discussion->user_id)
-                                <form
-                                    action="{{ route('discussions.best-reply', [
+                            @auth
+
+                                @if($discussion->bestReply->id !== $reply->id)
+
+                                    @if(auth()->user()->id === $discussion->user_id)
+                                        <form
+                                            action="{{ route('discussions.best-reply', [
                                 'discussion' => $discussion->slug,
                                 'reply'=>$reply->id
                                 ]) }}"
-                                    method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-sm btn-primary">Mark As Best Reply</button>
-                                </form>
-                            @endif
+                                            method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-primary">Mark As Best Reply
+                                            </button>
+                                        </form>
+                                    @endif
+
+                                @endif
+
+                            @endauth
+
                         </div>
 
                     </div>

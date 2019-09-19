@@ -2,6 +2,8 @@
 
 namespace DiscussIt;
 
+use DiscussIt\Notifications\ReplyMarkedAsBestReply;
+
 class Discussion extends Model
 {
     public function author()
@@ -35,9 +37,11 @@ class Discussion extends Model
      */
     public function markAsBestReply(Reply $reply)
     {
-        return $this->update([
+        $this->update([
             'reply_id' => $reply->id
         ]);
+
+        $reply->author->notify(new ReplyMarkedAsBestReply($reply->discussion));
     }
 
     public function bestReply()
