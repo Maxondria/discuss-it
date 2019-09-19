@@ -11,7 +11,8 @@ class DiscussionsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth'])->only(['create', 'store', 'update', 'edit', 'destroy']);
+        #Verify middleware enables only email-verified users to use the app
+        $this->middleware(['auth', 'verified'])->only(['create', 'store', 'update', 'edit', 'destroy']);
     }
 
     /**
