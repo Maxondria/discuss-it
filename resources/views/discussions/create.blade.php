@@ -5,9 +5,6 @@
         <div class="card-header">Add Discussion</div>
 
         <div class="card-body">
-
-            @include('partials.errors')
-
             <form action="{{ route('discussions.store') }}" method="POST">
                 @csrf
 

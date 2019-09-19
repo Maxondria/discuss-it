@@ -28,4 +28,20 @@ class Discussion extends Model
     {
         return 'slug';
     }
+
+    /**
+     * @param Reply $reply
+     * @return bool
+     */
+    public function markAsBestReply(Reply $reply)
+    {
+        return $this->update([
+            'reply_id' => $reply->id
+        ]);
+    }
+
+    public function bestReply()
+    {
+        return $this->belongsTo(Reply::class, 'reply_id');
+    }
 }

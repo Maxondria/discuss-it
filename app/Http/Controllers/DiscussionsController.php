@@ -2,6 +2,7 @@
 
 namespace DiscussIt\Http\Controllers;
 
+use DiscussIt\Reply;
 use Illuminate\Http\Request;
 use DiscussIt\Discussion;
 use DiscussIt\Http\Requests\CreateDiscussionsRequest;
@@ -12,6 +13,7 @@ class DiscussionsController extends Controller
     {
         $this->middleware(['auth'])->only(['create', 'store', 'update', 'edit', 'destroy']);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,6 +23,7 @@ class DiscussionsController extends Controller
     {
         return view('discussions.index', ['discussions' => Discussion::paginate(5)]);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -30,6 +33,7 @@ class DiscussionsController extends Controller
     {
         return view('discussions.create');
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -44,6 +48,7 @@ class DiscussionsController extends Controller
         session()->flash('success', 'Discussion created successfully');
         return redirect()->route('discussions.index');
     }
+
     /**
      * Display the specified resource.
      *
@@ -54,6 +59,7 @@ class DiscussionsController extends Controller
     {
         return view('discussions.show', ['discussion' => $discussion]);
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -64,6 +70,7 @@ class DiscussionsController extends Controller
     {
         //
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -75,6 +82,7 @@ class DiscussionsController extends Controller
     {
         //
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -84,5 +92,17 @@ class DiscussionsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * @param Discussion $discussion
+     * @param Reply $reply
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function reply(Discussion $discussion, Reply $reply)
+    {
+        $discussion->markAsBestReply($reply);
+        session()->flash('success', 'Marked As Best R eply');
+        return redirect()->back();
     }
 }
